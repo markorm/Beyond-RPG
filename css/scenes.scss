@@ -1,0 +1,118 @@
+#scene {
+	height: 100%;
+	width: 100%;
+	display: none;
+	.scene, .container, .part {
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+	}
+	.cont-wrap {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+	}
+}
+
+// Scene 1 - Splash
+#scene1 {
+	background: url('../img/bg.jpg') center center no-repeat;
+	background-size: cover;
+	.container {
+		background: rgba(0,0,0,0.8);
+		.intro {
+			width: 100%;
+			text-align: center;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+			span {
+				color: #fff;
+				text-shadow: 0 3px 8px rgba(0,0,0,0.6);
+			}
+			span.title {
+				font-size: 7em;
+				margin-bottom: 20px;
+				display: block;
+			}
+			span.subtitle {
+				font-size: 1.4em;
+				font-weight: 500;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+			}
+		}
+	}
+}
+
+#scene4 {
+	.part {
+		background: url('../img/bunk.jpg') center center no-repeat;
+		background-size: cover;
+		display: none;
+	}
+}
+
+#scene5 {
+	video {
+		transition: transform 5s linear;
+		&.zoom {
+			transform: scale(5) translate(-11%, -6%);
+		}
+	}
+}
+
+#scene8 {
+	.part {
+		//background: url('../img/worldbg1.jpg') center center no-repeat;
+	}
+}
+
+.cockpit {
+	background: url('../img/bridge.png') bottom center no-repeat;
+	background-size: cover;
+}
+
+
+video.fullscreen {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+#title {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #fff;
+	width: 100%;
+	text-align: center;
+	font-size: 6em;
+	text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	&.active {
+		z-index: 20;
+	}
+}
+
+#subtitles {
+	position: absolute;
+	bottom: 120px;
+	color: #fff;
+	width: 100%;
+	text-align: center;
+	padding: 0 20%;
+	line-height: 1.8em;
+	font-size: 1.6em;
+	text-shadow: 0 5px 12px rgba(0,0,0,0.4);
+	&.active {
+		z-index: 20;
+	}
+}

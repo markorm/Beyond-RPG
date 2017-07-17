@@ -1,0 +1,81 @@
+// P5 setup
+var s = function (p) {
+
+	// Setup
+	p.setup = function() {
+		p.createCanvas(p.windowWidth, p.windowHeight);
+	}
+
+	// Create Objects
+	p.ship = {
+		pos: p.createVector(p.windowWidth / 2, p.windowHeight / 2),
+		r: 20,
+		heading: 0,
+		rotation: 0,
+		isBoosting: false,
+		isReversing: false,
+		vel: p.createVector(0,0),
+		update: function() {
+			if (this.isBoosting || this.isReversing) {
+				this.boost();
+			}
+			if (this.isReversing) {
+				this.pos.sub(this.vel);
+				this.vel.mult(0);
+			} else {
+				this.pos.add(this.vel);
+				this.vel.mult(0.95);
+			}		
+		},
+		boost: function() {
+			var force = p5.Vector.fromAngle(this.heading);
+			this.vel.add(force);
+		},
+		render: function () {
+			p.translate(this.pos.x, this.pos.y);
+			p.rotate(this.heading + p.PI/2);
+			p.noFill();
+			p.stroke(255);
+			p.triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
+		},
+		setRotation: function(a) {
+			this.rotation = a;
+		},
+		turn: function() {
+			this.heading += this.rotation;
+		}
+	}
+
+	// Key input
+	p.keyReleased = function() {
+		if (p.keyCode == p.RIGHT_ARROW || p.keyCode == p.LEFT_ARROW) {
+			p.ship.setRotation(0);
+		} else if (p.keyCode == p.UP_ARROW) {
+			p.ship.isBoosting = false;
+		} else if (p.keyCode == p.DOWN_ARROW) {
+			p.ship.isReversing = false;
+		}
+	}
+
+	p.keyPressed = function() {
+		if (p.keyCode == p.RIGHT_ARROW) {
+			p.ship.setRotation(0.1);
+		} else if (p.keyCode == p.LEFT_ARROW) {
+			p.ship.setRotation(-0.1);
+		} else if (p.keyCode == p.UP_ARROW) {
+			p.ship.isBoosting = true;
+			p.ship.isReversing = false;
+		} else if (p.keyCode == p.DOWN_ARROW) {
+			p.ship.isBoosting = false;
+			p.ship.isReversing = true;
+		}
+	}
+
+	// Draw
+	p.draw = function () {
+		p.clear();
+		p.ship.render();
+		p.ship.turn();
+		p.ship.update();
+	};
+};
